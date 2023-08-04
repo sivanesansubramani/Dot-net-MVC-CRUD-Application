@@ -55,17 +55,20 @@ namespace PersonalDataMVC.Controllers
         // GET: PersonalDataController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var res = ObjRepository.SelectSP(id);
+            return View("Ubdate", res);
         }
 
         // POST: PersonalDataController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, PersonalDataModel Reg)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                Reg.id = id;
+                ObjRepository.ubdate(Reg);
+                return RedirectToAction(nameof(List));
             }
             catch
             {
@@ -73,20 +76,23 @@ namespace PersonalDataMVC.Controllers
             }
         }
 
-        // GET: PersonalDataController/Delete/5
+        // GET: Registration/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+            var res = ObjRepository.SelectSP(id);
+            return View("Delete", res);
         }
 
-        // POST: PersonalDataController/Delete/5
+        // POST: Registration/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Remove(int Id)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                ObjRepository.delete(Id);
+                return RedirectToAction(nameof(List));
             }
             catch
             {

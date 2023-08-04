@@ -126,17 +126,17 @@ namespace PersonalDataMVC.Repository
 
         }
 
-        public void delete()
+        public void delete(int Id)
         {
             try
             {
                 SqlConnection connectionObject = new SqlConnection(connectionString);
 
-                Console.WriteLine("enter a id  to delete record");
+               /* Console.WriteLine("enter a id  to delete record");
                 int del = Convert.ToInt32(Console.ReadLine());
-
+*/
                 connectionObject.Open();
-                connectionObject.Execute($"exec DeletePersonalBio {del} ");
+                connectionObject.Execute($"exec DeletePersonalBio {Id} ");
 
 
                 connectionObject.Close();
