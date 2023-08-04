@@ -1,36 +1,50 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PersonalDataMVC.Repository;
+using PersonalDataMVC.Models;
+
+
 
 namespace PersonalDataMVC.Controllers
 {
     public class PersonalDataController : Controller
     {
         // GET: PersonalDataController
-        public ActionResult Index()
+
+        PersonalBioRepository ObjRepository;
+
+        public PersonalDataController()
         {
-            return View();
+            ObjRepository = new PersonalBioRepository();
         }
 
-        // GET: PersonalDataController/Details/5
+        public ActionResult List()
+        {
+            return View("Select", ObjRepository.Select());
+        }
+
+        // GET: Registration/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var res = ObjRepository.SelectSP(id);
+            return View("Details", res);
         }
 
         // GET: PersonalDataController/Create
-        public ActionResult Create()
+        public ActionResult InsertRecord()
         {
-            return View();
+            return View("Insert", new PersonalDataModel());
         }
 
         // POST: PersonalDataController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(PersonalDataModel data)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                ObjRepository.InsertPersonalData(data);
+                return RedirectToAction(nameof(List));
             }
             catch
             {
