@@ -155,11 +155,9 @@ namespace PersonalDataMVC.Repository
 
 
         public PersonalDataModel SelectSP(int id)
-
         {
             try
             {
-
 
                 SqlConnection connection = new SqlConnection(connectionString);
                 connection.Open();
@@ -173,8 +171,6 @@ namespace PersonalDataMVC.Repository
             {
                 throw ex;
             }
-
-
         }
 
 
